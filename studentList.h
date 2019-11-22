@@ -2,16 +2,15 @@
 #define STUDENTLINKEDLIST_H
 
 #include "studentNode.h"
-#include <iostream>
 
 template <typename T>
-class studentList
+class StudentList
 {
 private:
-  studentList<T> *head;
-  studentList<T> *end;
+  StudentList<T> *head;
+  StudentList<T> *end;
 public:
-  studentList()
+  StudentList()
   {
     head = NULL;
     end = NULL;
@@ -21,5 +20,14 @@ public:
   void displayList();
   int getListSize();
 };
+template <typename T>
+void StudentList<T>::insertStudent(T value)
+{
+  StudentNode<T> *nodePtr;
+  StudentNode<T> *newNode;
+  newNode = new StudentNode<T>(value);
+
+
+}
 
 #endif

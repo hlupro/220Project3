@@ -4,20 +4,20 @@
 #include "student.h" //name is subject to change
 
 template <typename T>
-class studentNode
+class StudentNode
 {
 public:
-  studentNode<T> *next; //Node pointer that points to the next node in the list
-  studentNode<T> *prev; //Node pointer that points to the prev node in the list
+  StudentNode<T> *next; //Node pointer that points to the next node in the list
+  StudentNode<T> *prev; //Node pointer that points to the prev node in the list
   T student;            //student will hold an object of type T, which in this case should be a student object.
 
-  studentClass()  //defualt constructor
+  StudentNode()  //defualt constructor
   {
     next = NULL;
     prev = NULL;
-    student = Student();
+    Student();
   }
-  studentClass(studentClass *prevNode, studentClass *nextNode, T value)
+  StudentNode(StudentNode *prevNode, StudentNode *nextNode, T value)
   {
     prev = prevNode;
     next = nextNode;
