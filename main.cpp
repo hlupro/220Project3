@@ -3,13 +3,13 @@
 #include <fstream>
 
 void displayMenu();
+void readFile(StudentList<Student> list);
 
 int main()
 {
-  ifstream dataFile;
   StudentList<Student> list;
-  std::cout << "Reading from file" << std::endl;
-  displayMenu();
+  readFile(list);
+  list.displayList();
 };
 
 void displayMenu()
@@ -25,4 +25,24 @@ void displayMenu()
   cout << "D - Delete a Student" << endl;
   cout << "Q - Quit the Program" << endl;
   cout << "==============================" << endl;
+}
+
+void readFile(StudentList<Student> list)
+{
+  int yr;
+	string first;
+	string last;
+	int num = 0;
+	float points = 0;
+	int cred = 0;
+  fstream inputFile;
+  std::cout << "Reading from file" << std::endl;
+  inputFile.open("database", ios::in);
+  while (inputFile >> first >> last >> num >> cred >> yr >> points)
+  {
+      Student newStudent(first,last, num, cred, yr, points);
+      list.insertStudent(newStudent);
+  }
+  std::cout << "Closing File" << std::endl;
+  inputFile.close();
 }

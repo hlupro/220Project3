@@ -17,11 +17,11 @@ public:
     prev = NULL;
     Student();
   }
-  StudentNode(StudentNode *prevNode, StudentNode *nextNode, T value)
+  StudentNode(T value)
   {
-    prev = prevNode;
-    next = nextNode;
-    student = value; //Will need to create a copy constructor in studentClass.h
+    next = NULL;
+    prev = NULL;
+    student = Student(value);
   }                  //non-default constructor will take in two pointers
                      //order to insert a new node between them
                      //May have to include the list as a parameter Will need to test

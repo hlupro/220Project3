@@ -24,16 +24,21 @@ public:
 	void read_credits(int);
 	void read_years(int);
 	void read_gpa(float);
-	
+
 	string get_lastname() const;
 	string get_firstname() const;
+	string get_fullname() const;
 	int get_id() const;
 	int get_credits() const;
 	int get_years() const;
 	float get_gpa() const;
-	
+
 	void estimated_year() const;
 	void display_info() const;
+
+	bool operator < (const Student &right);
+
+
 };
 
 Student::Student()
@@ -47,7 +52,18 @@ Student::Student()
 	credits = 0;
 }
 
-Student::Student(Student student) //Will need to create getter functions for a copy constructor
+Student::Student(string first, string last, int num, int cred, int yr, float points)
+{
+	years = yr;
+	firstname = first;
+	lastname = last;
+	fullname = first + " " + last;
+	id = num;
+	GPA = points;
+	credits = cred;
+}
+
+Student::Student(const Student &student)
 {
 	firstname = student.get_firstname();
 	lastname = student.get_lastname();
@@ -66,6 +82,10 @@ string Student::get_firstname() const
 string Student::get_lastname() const
 {
 	return lastname;
+}
+string Student::get_fullname() const
+{
+	return fullname;
 }
 
 int Student::get_id() const
@@ -145,6 +165,18 @@ void Student::display_info() const
 	estimated_year();
 	cout << "Years In School: " << years << endl;
 	cout << "GPA: " << GPA << endl;
+}
+
+bool Student::operator < (const Student &right)
+{
+	if (firstname.compare(right.firstname) < 0)
+	{
+		return true;
+	}
+	else if(firstname.compare(right.firstname) > 0)
+	{
+		return false;
+	}
 }
 
 #endif
