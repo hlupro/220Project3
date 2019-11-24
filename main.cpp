@@ -3,13 +3,57 @@
 #include <fstream>
 
 void displayMenu();
-void readFile(StudentList<Student> list);
+StudentList<Student> readFile(StudentList<Student> list);
 
 int main()
 {
+  char quit = 'z';
+  std::cout << "Welcome to Kutter and Hunter's Student Information Database!" << std::endl;
+  std::cout << "Now uploading student profiles from a file." << std::endl;
   StudentList<Student> list;
-  readFile(list);
+  list = readFile(list);
   list.displayList();
+  while (quit != 'Q')
+  {
+    using namespace std;
+    cout << "Please choose an option from the menu." << endl;
+    displayMenu();
+    cin >> quit;
+
+    switch (quit)
+    {
+      case 'V':
+      cout << "\nAccessing Student Information Database." << endl;
+      list.displayList();
+      break;
+    case 'F':
+    {
+      cout << "Please enter the fullname of the student you would like to look up." << std::endl;
+      cin.ignore();
+      string name;
+      getline(cin,name);
+      list.searchStudent(name);
+      break;
+    }
+    case 'S':
+      list.sortList();
+      break;
+    case 'A':
+      cout << "You are now adding a student" << endl;
+      // Use insert node function
+      break;
+    case 'D':
+      cout << "You are now deleting a student." << endl;
+      // Use delete node function
+      break;
+    case 'Q':
+      cout << "You are now quiting the program." << endl;
+      break;
+    default:
+      cout << "Error, no useable input given!" << endl;
+      break;
+    }
+  }
 };
 
 void displayMenu()
@@ -27,7 +71,7 @@ void displayMenu()
   cout << "==============================" << endl;
 }
 
-void readFile(StudentList<Student> list)
+StudentList<Student> readFile(StudentList<Student> list)
 {
   int yr;
 	string first;
@@ -36,13 +80,14 @@ void readFile(StudentList<Student> list)
 	float points = 0;
 	int cred = 0;
   fstream inputFile;
-  std::cout << "Reading from file" << std::endl;
+  std::cout << "Now reading from file..." << std::endl;
   inputFile.open("database", ios::in);
   while (inputFile >> first >> last >> num >> cred >> yr >> points)
   {
       Student newStudent(first,last, num, cred, yr, points);
       list.insertStudent(newStudent);
   }
-  std::cout << "Closing File" << std::endl;
+  std::cout << "All students uploaded, now closing file...\n" << std::endl;
   inputFile.close();
+  return list;
 }

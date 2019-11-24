@@ -34,11 +34,10 @@ public:
 	float get_gpa() const;
 
 	void estimated_year() const;
+	void checkAcademic() const;
 	void display_info() const;
 
 	bool operator < (const Student &right);
-
-
 };
 
 Student::Student()
@@ -136,19 +135,23 @@ void Student::estimated_year() const
 {
 	if (credits <= 30)
 	{
-		cout << "Freshman" << endl;
+		cout << "Academic Status: Freshman" << endl;
 	}
-	if (credits <= 60 && credits >= 31)
+	else if (credits <= 60 && credits >= 31)
 	{
-		cout << "Sophomore" << endl;
+		cout << "Academic Status: Sophomore" << endl;
 	}
-	if (credits <= 90 && credits >= 61)
+	else if (credits <= 90 && credits >= 61)
 	{
-		cout << "Junior" << endl;
+		cout << "Academic Status: Junior" << endl;
+	}
+	else if(credits <=120 && credits >= 91 && years > 4)
+	{
+		cout << "Academic Status: Super Senior" << endl;
 	}
 	else if (credits <= 120 && credits >= 91)
 	{
-		cout << "Senior" << endl;
+		cout << "Academic Status: Senior" << endl;
 	}
 	else
 	{
@@ -158,7 +161,6 @@ void Student::estimated_year() const
 
 void Student::display_info() const
 {
-	cout << "Student Info:" << endl;
 	cout << "Student: " << fullname << endl;
 	cout << "ID: " << id << endl;
 	cout << "Credits: " << credits << endl;
@@ -178,5 +180,18 @@ bool Student::operator < (const Student &right)
 		return false;
 	}
 }
+
+void Student::checkAcademic() const
+{
+	if (GPA >= 2.0)
+	{
+		std::cout << fullname << " is in good academic standing." << std::endl;
+	}
+	else
+	{
+		std::cout << fullname << " is in poor academic standing." << std::endl;
+	}
+}
+
 
 #endif
