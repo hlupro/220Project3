@@ -37,10 +37,15 @@ void StudentList<T>::appendFront(T value)
 	if (head != NULL)
 	{
 		head->prev = newNode;
+		newNode->next = head;
+		head = newNode;
 	}
-	
-	newNode->next = head;
-	head = newNode;
+	else
+	{
+		newNode->next = NULL;
+		head = newNode;
+		end = newNode;
+	}
 }
 
 template <typename T>
@@ -53,19 +58,23 @@ void StudentList<T>::appendBack(T value)
 
 	if (!head)
 	{
+		std::cout << "TEST" << endl;
 		head = newNode;
-		head->prev = head->next = head;
+		head->prev = NULL;
+		head->next = NULL;
+		end = head;
 	}
 	else
 	{
 		nodePtr = head;
-
 		while (nodePtr->next)
 		{
 			nodePtr = nodePtr->next;
 		}
-
 		nodePtr->next = newNode;
+		newNode->next = NULL;
+		newNode->prev = nodePtr;
+		end = newNode;
 	}
 }
 
@@ -74,38 +83,55 @@ void StudentList<T>::removeStudent(string value)
 {
 	StudentNode<T>* delNode;
 	StudentNode<T>* nodePtr;
-
 	if (!head)
 	{
 		return;
 	}
-
-	while (head != NULL && head->student.get_fullname() == value)
+	if (head == end && head->student.get_fullname().compare(value) == 0)
+	{
+		delete head;
+		head = NULL;
+		end = NULL;
+		cout << "Database updated. " << value << " has been removed.\nGoing back to menu.\n" << endl;
+	}
+	else if(head->student.get_fullname().compare(value) == 0)
 	{
 		delNode = head;
 		head = head->next;
+		head->prev = NULL;
 		delete delNode;
+		cout << "Database updated. " << value << " has been removed.\nGoing back to menu.\n" << endl;
 	}
-
-	nodePtr = head;
-
-	while (nodePtr)
+	else if(end->student.get_fullname().compare(value) == 0)
 	{
-		if (nodePtr->student.get_fullname() == value)
-		{
-			delNode = nodePtr;
-			nodePtr = nodePtr->next;
-			head->prev->next = nodePtr;
-			delete delNode;
-		}
-		else
-		{
-			head->prev = nodePtr;
-			nodePtr = nodePtr->next;
-		}
+		delNode = end;
+		end = end->prev;
+		end->next = NULL;
+		delete delNode;
+		cout << "Database updated. " << value << " has been removed.\nGoing back to menu.\n" << endl;
 	}
-	nodePtr = NULL;
-
+	else
+	{
+		nodePtr = head;
+		while (nodePtr != NULL)
+		{
+			if(nodePtr->student.get_fullname().compare(value) == 0)
+			{
+				delNode = nodePtr;
+				nodePtr->prev->next = nodePtr->next;
+				nodePtr->next->prev = nodePtr->prev;
+				nodePtr = nodePtr->next;
+				delete delNode;
+				cout << "Database updated. " << value << " has been removed.\nGoing back to menu.\n" << endl;
+				return;
+			}
+			else
+			{
+				nodePtr = nodePtr->next;
+			}
+		}
+		std::cout << value << " was not in the list and thus could not be deleted.\nGoing back to menu.\n" << std::endl;
+	}
 }
 
 template <typename T>
@@ -154,20 +180,25 @@ void StudentList<T>::displayList()
 {
 	using namespace std;
 	StudentNode<T>* nodePtr;
-	nodePtr = head;
-	cout << "==============================" << endl;
-	cout << "Student Information Database" << endl;
-	cout << "==============================" << endl;
-	cout << "There are " << getListSize() << " Student(s) in the data base.\n" << endl;
-	while (nodePtr != NULL)
+	if(!head)
 	{
-		nodePtr->student.display_info();
-		cout << "" << endl;
-		nodePtr = nodePtr->next;
+		cout << "There is currnetly no Students in the Database." << endl;
 	}
-	std::cout << "The end of the list is " << end->student.get_fullname() << std::endl;
+	else
+	{
+		nodePtr = head;
+		cout << "==============================" << endl;
+		cout << "Student Information Database" << endl;
+		cout << "==============================" << endl;
+		cout << "There are " << getListSize() << " Student(s) in the data base.\n" << endl;
+		while (nodePtr != NULL)
+		{
+			nodePtr->student.display_info();
+			cout << "" << endl;
+			nodePtr = nodePtr->next;
+		}
+	}
 }
-
 template <typename T>
 void StudentList<T> ::swapNodes(StudentNode<T>* next, StudentNode<T>* current)
 {
@@ -205,15 +236,21 @@ int StudentList<T>::getListSize()
 {
 	int size = 0;
 	StudentNode<T>* nodePtr;
-	nodePtr = head;
-	while (nodePtr != NULL)
+	if(!head)
 	{
-		size++;
-		nodePtr = nodePtr->next;
+		return 0;
 	}
-	return size;
+	else
+	{
+		nodePtr = head;
+		while (nodePtr != NULL)
+		{
+			size++;
+			nodePtr = nodePtr->next;
+		}
+		return size;
+	}
 }
-
 template <typename T>
 void StudentList<T>::searchStudent(string name)
 {

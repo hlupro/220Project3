@@ -6,7 +6,11 @@ StudentList<Student> readFile(StudentList<Student> list);
 
 int main()
 {
+	string first, last;
+	int id, credits, years, num;
+	float gpa;
 	char quit = 'z';
+
 	std::cout << "Welcome to Kutter and Hunter's Student Information Database!" << std::endl;
 	std::cout << "Now uploading student profiles from a file." << std::endl;
 	StudentList<Student> list;
@@ -27,7 +31,7 @@ int main()
 			break;
 		case 'F':
 		{
-			cout << "Please enter the fullname of the student you would like to look up." << std::endl;
+			cout << "\nPlease enter the fullname of the student you would like to look up." << std::endl;
 			cin.ignore();
 			string name;
 			getline(cin, name);
@@ -38,13 +42,49 @@ int main()
 			list.sortList();
 			break;
 		case 'A':
-			cout << "You are now adding a student" << endl;
-			// Use insert node function
+		{
+			cout << "\nEnter the first name of the student." << endl;
+			cin >> first;
+			cout << "Enter the last name of the Student." << endl;
+			cin >> last;
+			cout << "Enter the student's ID number." << endl;
+			cin >> id;
+			cout << "Enter number of years the student has been in school." << endl;
+			cin >> years;
+			cout << "Enter the number of credits the student has." << endl;
+			cin >> credits;
+			cout << "Enter the student's GPA." << endl;
+			cin >> gpa;
+			Student newStudent(first, last, id, credits, years, gpa);
+			cout << "Which way do you want the student inserted into the list?" << endl;
+			cout << "(1. At the front. 2. At the back. 3. In order)" << endl;
+			cin >> num;
+			if(num == 1)
+			{
+				list.appendFront(newStudent);
+				cout << "Student Successfully inserted.\nGoing back to menu.\n" << endl;
+			}
+			else if(num == 2)
+			{
+				list.appendBack(newStudent);
+				cout << "Student Successfully inserted.\nGoing back to menu.\n" << endl;
+			}
+			else if(num == 3)
+			{
+				cout << "Making sure the database is sorted before insertion..." << endl;
+				list.sortList();
+				list.insertStudent(newStudent);
+				cout << "Student Successfully inserted.\nGoing back to menu.\n" << endl;
+			}
+			else
+			{
+				cout << "Did not specify which way to insert correctly.\nGoing back to menu.\n" << endl;
+			}
 			break;
+		}
 		case 'D':
 		{
-			cout << "You are now deleting a student." << endl;
-			cout << "Enter the name of the student you want to delete." << std::endl;
+			cout << "\nEnter the name of the student you want to delete." << std::endl;
 			cin.ignore();
 			string delName;
 			getline(cin, delName);
@@ -52,10 +92,10 @@ int main()
 			break;
 		}
 		case 'Q':
-			cout << "You are now quiting the program." << endl;
+			cout << "\nYou are now quiting the program." << endl;
 			break;
 		default:
-			cout << "Error, no useable input given!" << endl;
+			cout << "\nError, no useable input given!" << endl;
 			break;
 		}
 	}
@@ -84,9 +124,9 @@ StudentList<Student> readFile(StudentList<Student> list)
 	int num = 0;
 	float points = 0;
 	int cred = 0;
-	fstream inputFile;
+	ifstream inputFile;
 	std::cout << "Now reading from file..." << std::endl;
-	inputFile.open("database.txt", ios::in);
+	inputFile.open("database.txt");
 	while (inputFile >> first >> last >> num >> cred >> yr >> points)
 	{
 		Student newStudent(first, last, num, cred, yr, points);
