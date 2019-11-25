@@ -2,6 +2,7 @@
 #define STUDENTLINKEDLIST_H
 
 #include "studentNode.h"
+#include <fstream>
 
 template <typename T>
 class StudentList
@@ -24,6 +25,7 @@ public:
 	void sortList();
 	void searchStudent(string name);
 	void swapNodes(StudentNode<T>* next, StudentNode<T>* current);
+	void exportList();
 };
 
 template <typename T>
@@ -332,4 +334,37 @@ void StudentList<T> ::sortList()
 	}
 }
 
+template <typename T>
+void StudentList<T>:: exportList()
+{
+	using namespace std;
+	StudentNode<T> *nodePtr;
+	ofstream outFile;
+	outFile.open("output.txt", ios::out);
+	if (outFile.fail())
+	{
+		cout << "File could not be created." << endl;
+		return;
+	}
+	if (!head)
+	{
+		cout << "There are no students in the database to export." << endl;
+		return;
+	}
+	else
+	{
+		nodePtr = head;
+		while (nodePtr)
+		{
+			outFile << "Name: " << nodePtr->student.get_fullname() << endl;
+			outFile << "ID: " << nodePtr->student.get_id() << endl;
+			outFile << "Credits: " << nodePtr->student.get_credits() << endl;
+			outFile << "Years in school: " << nodePtr->student.get_years() << endl;
+			outFile << "GPA: " << nodePtr->student.get_gpa() << "\n" << endl;
+			nodePtr = nodePtr->next;
+		}
+		cout << "Export complete.\nGoing back to menu.\n" << endl;
+		outFile.close();
+	}
+}
 #endif

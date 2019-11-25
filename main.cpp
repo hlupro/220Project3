@@ -11,7 +11,7 @@ int main()
 	float gpa;
 	char quit = 'z';
 
-	std::cout << "Welcome to Kutter and Hunter's Student Information Database!" << std::endl;
+	std::cout << "\nWelcome to Kutter and Hunter's Student Information Database!" << std::endl;
 	std::cout << "Now uploading student profiles from a file." << std::endl;
 	StudentList<Student> list;
 	list = readFile(list);
@@ -91,6 +91,10 @@ int main()
 			list.removeStudent(delName);
 			break;
 		}
+		case 'E':
+			cout << "Exporting database to a new file..." << endl;
+			list.exportList();
+			break;
 		case 'Q':
 			cout << "\nYou are now quiting the program." << endl;
 			break;
@@ -104,16 +108,17 @@ int main()
 void displayMenu()
 {
 	using namespace std;
-	cout << "==============================" << endl;
+	cout << "=================================" << endl;
 	cout << "Student Information Database Menu" << endl;
-	cout << "==============================" << endl;
+	cout << "=================================" << endl;
 	cout << "V - View Student Information Database" << endl;
 	cout << "F - Find Student Information by Student" << endl;
 	cout << "S - Sort Student" << endl;
 	cout << "A - Add a Student" << endl;
 	cout << "D - Delete a Student" << endl;
+	cout << "E - Export list to new file." << endl;
 	cout << "Q - Quit the Program" << endl;
-	cout << "==============================" << endl;
+	cout << "=================================" << endl;
 }
 
 StudentList<Student> readFile(StudentList<Student> list)
