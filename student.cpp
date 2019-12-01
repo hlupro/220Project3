@@ -1,6 +1,10 @@
+// Kutter Aaron & Hunter Lupro
+// student.cpp
+// Student class definitions
+
 #include "student.h"
 
-Student::Student()
+Student::Student() //default constructor declaration
 {
 	years = 0;
 	firstname = "Not Given";
@@ -11,7 +15,7 @@ Student::Student()
 	credits = 0;
 }
 
-Student::Student(string first, string last, int num, int cred, int yr, float points)
+Student::Student(string first, string last, int num, int cred, int yr, float points) //constructor declaration
 {
 	years = yr;
 	firstname = first;
@@ -22,7 +26,7 @@ Student::Student(string first, string last, int num, int cred, int yr, float poi
 	credits = cred;
 }
 
-Student::Student(const Student& student)
+Student::Student(const Student& student) //copy constructor declaration
 {
 	firstname = student.get_firstname();
 	lastname = student.get_lastname();
@@ -33,65 +37,65 @@ Student::Student(const Student& student)
 	credits = student.get_credits();
 }
 
-string Student::get_firstname() const
+string Student::get_firstname() const //gets firstname
 {
 	return firstname;
 }
 
-string Student::get_lastname() const
+string Student::get_lastname() const //gets lastname
 {
 	return lastname;
 }
-string Student::get_fullname() const
+string Student::get_fullname() const //gets fullname
 {
 	return fullname;
 }
 
-int Student::get_id() const
+int Student::get_id() const //gets id
 {
 	return id;
 }
-int Student::get_credits() const
+int Student::get_credits() const //gets credits
 {
 	return credits;
 }
-int Student::get_years() const
+int Student::get_years() const //gets years in school
 {
 	return years;
 }
-float Student::get_gpa() const
+float Student::get_gpa() const //gets gpa
 {
 	return GPA;
 }
 
-void Student::read_name(string userfName, string userlName)
+void Student::read_name(string userfName, string userlName) //asks user for name
 {
 	firstname = userfName;
 	lastname = userlName;
 	fullname = firstname + " " + lastname;
 }
 
-void Student::read_id(int userID)
+void Student::read_id(int userID) //ask user for id
 {
 	id = userID;
 }
 
-void Student::read_credits(int userCredits)
+void Student::read_credits(int userCredits) //asks user for credits
 {
 	credits = userCredits;
 }
 
-void Student::read_years(int userYears)
+void Student::read_years(int userYears) //asks user for years in school
 {
 	years = userYears;
 }
 
-void Student::read_gpa(float userGPA)
+void Student::read_gpa(float userGPA) //asks user for gpa
 {
 	GPA = userGPA;
 }
 
-void Student::estimated_year() const
+void Student::estimated_year() const //calculates estimated year based on credits earned
 {
 	if (credits <= 30)
 	{
@@ -119,7 +123,7 @@ void Student::estimated_year() const
 	}
 }
 
-void Student::display_info() const
+void Student::display_info() const //displays info based on the student
 {
 	cout << "Student: " << fullname << endl;
 	cout << "ID: " << id << endl;
@@ -129,7 +133,7 @@ void Student::display_info() const
 	cout << "GPA: " << GPA << endl;
 }
 
-bool Student::operator < (const Student& right)
+bool Student::operator < (const Student& right) //overloaded < operator
 {
 	if (firstname.compare(right.firstname) < 0)
 	{
@@ -141,7 +145,7 @@ bool Student::operator < (const Student& right)
 	}
 }
 
-void Student::checkAcademic() const
+void Student::checkAcademic() const //checks academic standing based on gpa
 {
 	if (GPA >= 2.0)
 	{

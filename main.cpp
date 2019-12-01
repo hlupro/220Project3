@@ -1,3 +1,7 @@
+// Kutter Aaron & Hunter Lupro
+// main.cpp
+// Main program
+
 #include "studentList.h"
 #include <fstream>
 
@@ -15,21 +19,21 @@ int main()
 	std::cout << "Now uploading student profiles from a file." << std::endl;
 	StudentList<Student> list;
 	list = readFile(list);
-	list.displayList();
+	list.displayList(); //displays list
 	while (quit != 'Q')
 	{
 		using namespace std;
 		cout << "Please choose an option from the menu." << endl;
-		displayMenu();
+		displayMenu(); //displays menu
 		cin >> quit;
 
 		switch (quit)
 		{
-		case 'V':
+		case 'V': //If chosen, displays the entire database
 			cout << "\nAccessing Student Information Database." << endl;
 			list.displayList();
 			break;
-		case 'F':
+		case 'F': //If chosen, allows you to look up a student
 		{
 			cout << "\nPlease enter the fullname of the student you would like to look up." << std::endl;
 			cin.ignore();
@@ -38,10 +42,10 @@ int main()
 			list.searchStudent(name);
 			break;
 		}
-		case 'S':
+		case 'S': //If chosen, sorts the database
 			list.sortList();
 			break;
-		case 'A':
+		case 'A': //If chosen, allows the user to create information for a student
 		{
 			cout << "\nEnter the first name of the student." << endl;
 			cin >> first;
@@ -59,17 +63,17 @@ int main()
 			cout << "Which way do you want the student inserted into the list?" << endl;
 			cout << "(1. At the front. 2. At the back. 3. In order)" << endl;
 			cin >> num;
-			if(num == 1)
+			if (num == 1)
 			{
 				list.appendFront(newStudent);
 				cout << "Student Successfully inserted.\nGoing back to menu.\n" << endl;
 			}
-			else if(num == 2)
+			else if (num == 2)
 			{
 				list.appendBack(newStudent);
 				cout << "Student Successfully inserted.\nGoing back to menu.\n" << endl;
 			}
-			else if(num == 3)
+			else if (num == 3)
 			{
 				cout << "Making sure the database is sorted before insertion..." << endl;
 				list.sortList();
@@ -82,7 +86,7 @@ int main()
 			}
 			break;
 		}
-		case 'D':
+		case 'D': //If chosen, allows the user to delete a student based on their full name
 		{
 			cout << "\nEnter the name of the student you want to delete." << std::endl;
 			cin.ignore();
@@ -91,21 +95,21 @@ int main()
 			list.removeStudent(delName);
 			break;
 		}
-		case 'E':
+		case 'E': //If chosen, exports the data to a new file for the user to keep
 			cout << "Exporting database to a new file..." << endl;
 			list.exportList();
 			break;
-		case 'Q':
+		case 'Q': //If chosen, the program will quit
 			cout << "\nYou are now quiting the program." << endl;
 			break;
-		default:
+		default: //Only appears when nothing above is chosen
 			cout << "\nError, no useable input given!" << endl;
 			break;
 		}
 	}
 };
 
-void displayMenu()
+void displayMenu() //displays the selection menu
 {
 	using namespace std;
 	cout << "=================================" << endl;
@@ -121,7 +125,7 @@ void displayMenu()
 	cout << "=================================" << endl;
 }
 
-StudentList<Student> readFile(StudentList<Student> list)
+StudentList<Student> readFile(StudentList<Student> list) //reads data from the database.txt file
 {
 	int yr;
 	string first;

@@ -1,3 +1,8 @@
+// Kutter Aaron & Hunter Lupro
+// studentList.h
+// Doubly linked class for student
+
+
 #ifndef STUDENTLINKEDLIST_H
 #define STUDENTLINKEDLIST_H
 
@@ -8,28 +13,28 @@ template <typename T>
 class StudentList
 {
 private:
-	StudentNode<T>* head;
-	StudentNode<T>* end;
+	StudentNode<T>* head; //head of the list
+	StudentNode<T>* end; //end of the list
 public:
-	StudentList()
+	StudentList() //default constructor
 	{
 		head = NULL;
 		end = NULL;
 	}
-	void appendFront(T value);
-	void appendBack(T value);
-	void insertStudent(T value);
-	void removeStudent(string value);
-	void displayList();
-	int getListSize();
-	void sortList();
-	void searchStudent(string name);
-	void swapNodes(StudentNode<T>* next, StudentNode<T>* current);
-	void exportList();
+	void appendFront(T value); //appending front function
+	void appendBack(T value); //appending back function
+	void insertStudent(T value); //insert student function
+	void removeStudent(string value); //remove student function
+	void displayList(); //display list of students function
+	int getListSize(); //get list size function
+	void sortList(); //sort list function, choosing between 3 options
+	void searchStudent(string name); //search for a specific student function
+	void swapNodes(StudentNode<T>* next, StudentNode<T>* current); //swapping nodes (students) function
+	void exportList(); //exports the list to a file 
 };
 
 template <typename T>
-void StudentList<T>::appendFront(T value)
+void StudentList<T>::appendFront(T value)   //appending front function definition
 {
 	StudentNode<T>* newNode;
 	newNode = new StudentNode<T>;
@@ -51,7 +56,7 @@ void StudentList<T>::appendFront(T value)
 }
 
 template <typename T>
-void StudentList<T>::appendBack(T value)
+void StudentList<T>::appendBack(T value) //appending back function definition
 {
 	StudentNode<T>* newNode;
 	StudentNode<T>* nodePtr;
@@ -81,7 +86,7 @@ void StudentList<T>::appendBack(T value)
 }
 
 template <typename T>
-void StudentList<T>::removeStudent(string value)
+void StudentList<T>::removeStudent(string value) //remove student function definition
 {
 	StudentNode<T>* delNode;
 	StudentNode<T>* nodePtr;
@@ -96,7 +101,7 @@ void StudentList<T>::removeStudent(string value)
 		end = NULL;
 		cout << "Database updated. " << value << " has been removed.\nGoing back to menu.\n" << endl;
 	}
-	else if(head->student.get_fullname().compare(value) == 0)
+	else if (head->student.get_fullname().compare(value) == 0)
 	{
 		delNode = head;
 		head = head->next;
@@ -104,7 +109,7 @@ void StudentList<T>::removeStudent(string value)
 		delete delNode;
 		cout << "Database updated. " << value << " has been removed.\nGoing back to menu.\n" << endl;
 	}
-	else if(end->student.get_fullname().compare(value) == 0)
+	else if (end->student.get_fullname().compare(value) == 0)
 	{
 		delNode = end;
 		end = end->prev;
@@ -117,7 +122,7 @@ void StudentList<T>::removeStudent(string value)
 		nodePtr = head;
 		while (nodePtr != NULL)
 		{
-			if(nodePtr->student.get_fullname().compare(value) == 0)
+			if (nodePtr->student.get_fullname().compare(value) == 0)
 			{
 				delNode = nodePtr;
 				nodePtr->prev->next = nodePtr->next;
@@ -137,7 +142,7 @@ void StudentList<T>::removeStudent(string value)
 }
 
 template <typename T>
-void StudentList<T>::insertStudent(T value)
+void StudentList<T>::insertStudent(T value) //insert student function definition
 {
 	StudentNode<T>* nodePtr;
 	StudentNode<T>* newNode;
@@ -178,11 +183,11 @@ void StudentList<T>::insertStudent(T value)
 }
 
 template <typename T>
-void StudentList<T>::displayList()
+void StudentList<T>::displayList() //display list of students function definition
 {
 	using namespace std;
 	StudentNode<T>* nodePtr;
-	if(!head)
+	if (!head)
 	{
 		cout << "There is currnetly no Students in the Database." << endl;
 	}
@@ -202,7 +207,7 @@ void StudentList<T>::displayList()
 	}
 }
 template <typename T>
-void StudentList<T> ::swapNodes(StudentNode<T>* next, StudentNode<T>* current)
+void StudentList<T>::swapNodes(StudentNode<T>* next, StudentNode<T>* current) //swapping nodes (students) function definition
 {
 	if (current == head)
 	{
@@ -234,11 +239,11 @@ void StudentList<T> ::swapNodes(StudentNode<T>* next, StudentNode<T>* current)
 }
 
 template <typename T>
-int StudentList<T>::getListSize()
+int StudentList<T>::getListSize() //get list size function definition
 {
 	int size = 0;
 	StudentNode<T>* nodePtr;
-	if(!head)
+	if (!head)
 	{
 		return 0;
 	}
@@ -254,7 +259,7 @@ int StudentList<T>::getListSize()
 	}
 }
 template <typename T>
-void StudentList<T>::searchStudent(string name)
+void StudentList<T>::searchStudent(string name)  //search for a specific student function definition
 {
 	StudentNode<T>* nodePtr;
 	bool found = false;
@@ -279,7 +284,7 @@ void StudentList<T>::searchStudent(string name)
 }
 
 template <typename T>
-void StudentList<T> ::sortList()
+void StudentList<T> ::sortList() //sort list function, choosing between 3 options, definition
 {
 	StudentNode<T>* nodePtr;
 	StudentNode<T>* swapPtr;
@@ -335,10 +340,10 @@ void StudentList<T> ::sortList()
 }
 
 template <typename T>
-void StudentList<T>:: exportList()
+void StudentList<T>::exportList() //export list function definition
 {
 	using namespace std;
-	StudentNode<T> *nodePtr;
+	StudentNode<T>* nodePtr;
 	ofstream outFile;
 	outFile.open("output.txt", ios::out);
 	if (outFile.fail())
